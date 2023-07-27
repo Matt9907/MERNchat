@@ -1,5 +1,7 @@
-import Register from "./Register"
+import Register from "./Register";
 import axios from "axios";
+
+
 
 
 function App() {

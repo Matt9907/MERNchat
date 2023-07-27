@@ -28,7 +28,10 @@ app.post('/register', async (req,res) =>{
         const createUser = await User.create({username, password});
         jsonToken.sign({userId: createUser, _id}, jsonSecret,{}, (err, token) => {
             if (err) throw err;
-            res.cookie('token', token).status(201).json('ok');
+            res.cookie('token', token).status(201).json('ok')({
+                _id: createUser._id,
+            });
+            
         });
 
     }catch(err){
