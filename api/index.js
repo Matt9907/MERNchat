@@ -22,14 +22,27 @@ app.get('/test', (req,res) =>{
     res.json('test ok');
 });
 
+app.get('/profile', (req,res) =>{
+    const {token} = req.cookies;
+    jsonToken.verify(token,jsonSecret,{},(err, userData) =>{
+        if(err) throw err;
+        res.json(userData);
+    });
+
+});
+
 app.post('/register', async (req,res) =>{
     const {username, password} = req.body;
     try{
-        const createUser = await User.create({username, password});
-        jsonToken.sign({userId: createUser, _id}, jsonSecret,{}, (err, token) => {
+        const createUser = await User.create({
+            username:username, 
+            password:password
+        });
+        
+        jsonToken.sign({userId: createUser._id, username}, jsonSecret,{}, (err, token) => {
             if (err) throw err;
             res.cookie('token', token).status(201).json('ok')({
-                _id: createUser._id,
+                id: createUser._id,
             });
             
         });
