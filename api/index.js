@@ -11,7 +11,7 @@ dotenv.config();
 mongoose.connect(process.env.MONGO_URL);
     
 const jsonSecret = process.env.JSON_SECRET;
-const bcryptSalt = bcrypt.generateSaltSync(10);
+const bcryptSalt = bcrypt.genSaltSync(10);
 
 
 const app = express();
@@ -44,7 +44,19 @@ app.get('/profile', (req,res) =>{
 app.post('/login',async (req,res) =>{
     const {username, password} = req.body;
     const foundUser = await User.findOne({username});
-})
+    if (foundUser){
+       const passOk = bcrypt.compareSync(password, foundUser.password);
+       if(passOk){
+        jsonToken.sign({userId:createdUser, _id,username}, jsonSecret, {}, (err,token) =>{
+
+        
+        res.cookie('token', token, {sameSite:'none', secure:true}).json({
+            id: foundUser._id,
+        });
+       });
+       }
+    }
+});
 
 app.post('/register', async (req,res) =>{
     const {username, password} = req.body;
