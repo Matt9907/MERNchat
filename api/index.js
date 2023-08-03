@@ -11,6 +11,7 @@ dotenv.config();
 mongoose.connect(process.env.MONGO_URL);
     
 const jsonSecret = process.env.JSON_SECRET;
+const bcryptSalt = bcrypt.generateSaltSync(10);
 
 
 const app = express();
@@ -48,9 +49,10 @@ app.post('/login',async (req,res) =>{
 app.post('/register', async (req,res) =>{
     const {username, password} = req.body;
     try{
+        const hashedPassword = bcrypt.hashSync(password, bcryptSalt)
         const createUser = await User.create({
             username:username, 
-            password:password
+            password:hashedPassword,
         });
         
         jsonToken.sign({userId: createUser._id, username}, jsonSecret,{}, (err, token) => {
