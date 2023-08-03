@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const jsonToken = require('jsonwebtoken');
 const cors = require('cors');
+const bcrypt = require('bcryptjs');
 const User = require('./models/User');
 
 dotenv.config();
@@ -38,6 +39,11 @@ app.get('/profile', (req,res) =>{
 
 
 });
+
+app.post('/login',async (req,res) =>{
+    const {username, password} = req.body;
+    const foundUser = await User.findOne({username});
+})
 
 app.post('/register', async (req,res) =>{
     const {username, password} = req.body;

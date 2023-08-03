@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import Register from "./Register";
 import {UserContext} from "./UserContext.jsx"
+import RegisterAndLogin from "./RegisterAndLogin";
 
 export default function Routes(){
     const {username, id } = useContext(UserContext);
@@ -10,6 +10,6 @@ export default function Routes(){
     }
 
     return(
-<Register />
+<RegisterAndLogin />
     );
 }
