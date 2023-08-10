@@ -105,9 +105,11 @@ wss.on('connection',(connection, req) =>{
             jsonToken.verify(token,jsonSecret,{},(error,userData) =>{
                 if(err) throw err;
                 const {userId,username} = userData;
+                connection.userId = userId;
+                connection.username = username;
 
 
-            })
+            });
         }
     }
  }    
