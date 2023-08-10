@@ -1,6 +1,6 @@
 import { useState,useContext } from "react";
 import axios from "axios";
-import{UserContext} from "./UserContext.jsx"
+import{UserContext} from "./UserContext.jsx";
 
 export default function RegisterAndLogin(){
     const [username,setUsername] = useState('');
@@ -24,7 +24,8 @@ export default function RegisterAndLogin(){
                 className="block w-full rounded-sm p-2 mb-2 border" />
         <input value={password} 
                 onChange={ev => setPassword(ev.target.value)} 
-                type = "password" placeholder="password" 
+                type = "password" 
+                placeholder="password" 
                 className="block w-full rounded-sm p-2 mb-2 border" />
         <button className="bg-blue-500 text-white block w-full rounded-sm p-2">
                     {isLoginOrRegister ==='register' ? 'Register' : 'Login'}
@@ -50,7 +51,7 @@ export default function RegisterAndLogin(){
         </div>
             </form>
         </div>
-    )
+    );
 
 
-};
+}

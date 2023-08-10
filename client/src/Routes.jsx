@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import {UserContext} from "./UserContext.jsx"
-import RegisterAndLogin from "./RegisterAndLogin";
+import RegisterAndLogin from "./RegisterAndLogin.jsx";
 
 export default function Routes(){
     const {username, id } = useContext(UserContext);
