@@ -11,10 +11,11 @@ export default function RegisterAndLogin(){
     async function handleSubmit(ev){
         ev.preventDefault();
         const url = isLoginOrRegister === 'register' ? 'register' : 'login';
-      const {data} = await  axios.post(url, {username,password});
-      setLoggedInUsername(username);
-      setId(data.id);
+        const {data} =  axios.post(url, {username,password});
+        setLoggedInUsername(username);
+        setId(data.id);
     }
+
     return(
         <div className="bg-blue-50 h-screen flex items-center">
         <form className="w-64 mx-auto mb-12" onSubmit={handleSubmit}>

@@ -9,7 +9,7 @@ export default function Chat(){
     const [ws, setWs] = useState(null);
     const[onlinePeople,setOnlinePeople] = useState({});
     const [selectedUserId, setSelectedUserId] = useState(null);
-    const {username,id, setId,setUsername} = useContext(UserContext);
+    const {username,id} = useContext(UserContext);
 
 useEffect(() =>{
     const ws = new WebSocket('ws://localhost:5173');
