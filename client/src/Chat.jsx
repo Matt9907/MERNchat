@@ -45,7 +45,7 @@ MernChat
 </div>
                 {Object.keys(onlinePeople).map(userId =>(
                     <div className="border-b border-gray-100 py-2 flex items-center gap-2">
-                        <Avatar />
+                        <Avatar username={onlinePeople[userId]} userId={[userId]} />
                     
                        <sparn>{onlinePeople[userId]}</sparn>
                         </div>
