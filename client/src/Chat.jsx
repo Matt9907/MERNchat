@@ -50,12 +50,17 @@ delete onlinePeopleExcUs[id];
         <div className="flex h-screen">
             <div className = "bg-white w-1/3 ">
                 <Logo />
-                {Object.keys(onlinePeople).map(userId =>(
+                {Object.keys(onlinePeopleExcUs).map(userId =>(
                     <div key={userId} onClick ={() => setSelectedUserId(userId)} 
-                    className={"border-b border-gray-100 py-2 pl-4  flex items-center gap-2 cursor-pointer"+(userId === selectedUserId ? 'bg-blue-50' :'')}>
+                    className={"border-b border-gray-100 flex items-center gap-2 cursor-pointer"+(userId === selectedUserId ? 'bg-blue-50' :'')}>
+                        {userId === selectedUserId && (
+                            <div className="w-1 bg-blue-500 h-12"></div>
+                        ) }
+                        <div className="flex gap-2 py-2 pl-4">
                         <Avatar username={onlinePeople[userId]} userId={[userId]} />
                     
-                       <sparn className="text-gray-800">{onlinePeople[userId]}</sparn>
+                    <span className="text-gray-800">{onlinePeople[userId]}</span>
+                     </div>
                         </div>
                 ))}
             </div>
