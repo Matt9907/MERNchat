@@ -9,15 +9,15 @@ export function UserContextProvider({children}){
     const [id,setId] = useState(null);
 
     useEffect(() =>{
-        axios.get('profile').then(response =>{
+        axios.get('./profile').then(response =>{
             setId(response.data.userId);
             setUsername(response.data.username);
         });
     }, []);
     return(
-        <UserContextProvider value={{username,setUsername,id,setId}}>
+        <UserContext.Provider value={{username,setUsername,id,setId}}>
             {children}
-            </UserContextProvider>
+            </UserContext.Provider>
     );
 
 }

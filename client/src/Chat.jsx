@@ -1,10 +1,13 @@
 import Avatar from "./Avatar";
 import Logo from "./Logo";
+import {UserContext} from "./UserContext.jsx"
 
 export default function Chat(){
     const [ws, setWs] = useState(null);
     const[onlinePeople,setOnlinePeople] = useState({});
     const [selectedUserId, setSelectedUserId] = useState(null);
+    const {username} = useContext(UserContext);
+
 useEffect(() =>{
     const ws = new WebSocket('ws://localhost:5173');
     setWs(ws);
