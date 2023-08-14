@@ -54,9 +54,9 @@ delete onlinePeopleExcUs[id];
                     <div key={userId} onClick ={() => setSelectedUserId(userId)} 
                     className={"border-b border-gray-100 flex items-center gap-2 cursor-pointer"+(userId === selectedUserId ? 'bg-blue-50' :'')}>
                         {userId === selectedUserId && (
-                            <div className="w-1 bg-blue-500 h-12"></div>
+                            <div className="w-1 bg-blue-500 h-12 rounded-r-md"></div>
                         ) }
-                        <div className="flex gap-2 py-2 pl-4">
+                        <div className="flex gap-2 py-2 pl-4 items-center">
                         <Avatar username={onlinePeople[userId]} userId={[userId]} />
                     
                     <span className="text-gray-800">{onlinePeople[userId]}</span>
@@ -66,7 +66,11 @@ delete onlinePeopleExcUs[id];
             </div>
             <div className="flex flex-col bg-blue-50 w-2/3 p-2">
                 <div className="flex-grow"> 
-                messages with selected persons
+                {!selectedUserId && (
+                    <div className="flex h-full flex-grow items-center justify-center"> 
+                    <div className="text-gray-300">&larr; Select a Contact</div>
+                    </div>
+                )}
                 </div>
                 <div className="flex gap-2 ">
                     <input 
