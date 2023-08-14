@@ -1,12 +1,15 @@
+import { useContext,useEffect,useRef , useState } from "react";
 import Avatar from "./Avatar";
 import Logo from "./Logo";
 import {UserContext} from "./UserContext.jsx"
+import axios from "axios";
+
 
 export default function Chat(){
     const [ws, setWs] = useState(null);
     const[onlinePeople,setOnlinePeople] = useState({});
     const [selectedUserId, setSelectedUserId] = useState(null);
-    const {username} = useContext(UserContext);
+    const {username,id, setId,setUsername} = useContext(UserContext);
 
 useEffect(() =>{
     const ws = new WebSocket('ws://localhost:5173');
@@ -37,6 +40,9 @@ function handleMessage(ev){
     }
 
 }
+
+const onlinePeopleExcUs = {...onlinePeople};
+delete onlinePeopleExcUs[id];
 
 
 
