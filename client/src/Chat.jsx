@@ -42,7 +42,7 @@ function handleMessage(ev){
 }
 
 const onlinePeopleExcUs = {...onlinePeople};
-delete onlinePeopleExcUs[id];
+//delete onlinePeopleExcUs[id];
 
 
 
