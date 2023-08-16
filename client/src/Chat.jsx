@@ -9,6 +9,7 @@ export default function Chat(){
     const [ws, setWs] = useState(null);
     const[onlinePeople,setOnlinePeople] = useState({});
     const [selectedUserId, setSelectedUserId] = useState(null);
+    const [newMessageText,setNewMessageText] = useState('');
     const {username,id} = useContext(UserContext);
 
 useEffect(() =>{
@@ -41,8 +42,19 @@ function handleMessage(ev){
 
 }
 
+function sendMessage(ev){
+    ev.preventDefault();
+    ws.send(JSON.stringify({
+    message:{
+        recipent: selectedUserId,
+        text: newMessageText,
+    }
+}));
+
+}
+
 const onlinePeopleExcUs = {...onlinePeople};
-//delete onlinePeopleExcUs[id];
+delete onlinePeopleExcUs[id];
 
 
 
@@ -72,15 +84,19 @@ const onlinePeopleExcUs = {...onlinePeople};
                     </div>
                 )}
                 </div>
-                <div className="flex gap-2 ">
+                {!!selectedUserId && (
+                <form className="flex gap-2" onSubmit={sendMessage}>
                     <input 
                     type = "text" 
+                    value = {newMessageText}
+                    onChange={ev => setNewMessageText(ev.target.value)}
                     placeholder="Type your message here" 
                     className="bg-white flex-grow border p-2 rounded-sm" />
-                    <button className="bg-blue-500 p-2 text-white rounded-sm">
+                    <button type="submit" className="bg-blue-500 p-2 text-white rounded-sm">
                     Send
                     </button>
-                </div>
+                </form>
+                )}
             </div>
             </div>
     );

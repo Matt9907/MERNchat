@@ -96,6 +96,7 @@ const server = app.listen(4000);
 const wss=new ws.WebSocketServer({server});
 
 wss.on('connection',(connection, req) =>{
+    //read user and id from the cookie for this connection
  const cookies = req.headers.cookie;
  if (cookies){
     const tokenCookieString = cookies.split(';').find(str => str.startsWith("token="));
@@ -114,6 +115,11 @@ wss.on('connection',(connection, req) =>{
     }
  }    
 
+ connection.on('message',(message) => {
+
+ });
+
+ //notify everyone about online people(when new connection)
 [...wss.clients].forEach(client => {
     client.send(JSON.stringify({
       online:  [...wss.clients].map(c => ({userId:c.userId,username:c.username}))
