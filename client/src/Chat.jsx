@@ -41,7 +41,7 @@ function handleMessage(ev){
     if('online' in messageData){
         showOnlinePeople(messageData.online);
     }else if('text' in messageData){
-        setMessages(prev => ([...prev, {isOur:false, text:messageData.text}]));
+        setMessages(prev => ([...prev, {...messageData}]));
     }
 
 }
@@ -54,7 +54,11 @@ function sendMessage(ev){
     
 }));
    setNewMessageText('');
-   setMessages(prev => ([...prev,{text: newMessageText, isOur:true}]));
+   setMessages(prev => ([...prev,{
+    text: newMessageText, 
+    sender: id,
+    recipient: selectedUserId,
+}]));
 
 }
 
@@ -93,7 +97,11 @@ const messageWithoutDupe = uniqBy(messages, 'id');
                 {!!selectedUserId &&(
                     <div>
                         {messageWithoutDupe.map(message =>(
-                            <div> {message.text}</div>
+                            <div> 
+                                sender: {message.sender}<br />
+                                my id: {id}<br />
+                               {message.text}
+                                </div>
                         ))}
                         </div>
                 )}
