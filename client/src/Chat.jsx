@@ -2,6 +2,7 @@ import { useContext,useEffect,useRef , useState } from "react";
 import Avatar from "./Avatar";
 import Logo from "./Logo";
 import {UserContext} from "./UserContext.jsx"
+import {uniqBy} from "lodash";
 import axios from "axios";
 
 
@@ -39,7 +40,7 @@ function handleMessage(ev){
     const messageData = JSON.parse(ev.data);
     if('online' in messageData){
         showOnlinePeople(messageData.online);
-    }else{
+    }else if('text' in messageData){
         setMessages(prev => ([...prev, {isOur:false, text:messageData.text}]));
     }
 
@@ -59,6 +60,8 @@ function sendMessage(ev){
 
 const onlinePeopleExcUs = {...onlinePeople};
 delete onlinePeopleExcUs[id];
+
+const messageWithoutDupe = uniqBy(messages, 'id');
 
 
 
@@ -89,7 +92,7 @@ delete onlinePeopleExcUs[id];
                 )}
                 {!!selectedUserId &&(
                     <div>
-                        {messages.map(message =>(
+                        {messageWithoutDupe.map(message =>(
                             <div> {message.text}</div>
                         ))}
                         </div>
