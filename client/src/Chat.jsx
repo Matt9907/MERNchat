@@ -40,7 +40,7 @@ function handleMessage(ev){
     if('online' in messageData){
         showOnlinePeople(messageData.online);
     }else{
-        console.log({messageData});
+        setMessages(prev => ([...prev, {isOur:false, text:messageData.text}]));
     }
 
 }

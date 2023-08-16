@@ -28,7 +28,7 @@ app.get('/test', (req,res) =>{
 });
 
 app.get('/profile', (req,res) =>{
-    const {token} = req.cookies?.token;
+    const token = req.cookies?.token;
     if(token){
     jwt.verify(token,jsonSecret,{},(err, userData) =>{
         if(err) throw err;
@@ -37,8 +37,6 @@ app.get('/profile', (req,res) =>{
 }else{
     res.status(401).json('no token');
 }
-
-
 });
 
 app.post('/login',async (req,res) =>{
@@ -119,9 +117,10 @@ wss.on('connection',(connection, req) =>{
     const messageData = JSON.parse(message.toString());
     const {recipient, text} = messageData;
     if(recipient && text){
+        
         [...wss.clients]
         .filter(c=>c.userId === recipient)
-        .forEach(c=>c.send(JSON.stringify({text})));
+        .forEach(c=>c.send(JSON.stringify({text, sender: connection.userId})));
     }
     
  });
