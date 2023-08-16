@@ -38,6 +38,8 @@ function handleMessage(ev){
     const messageData = JSON.parse(ev.data);
     if('online' in messageData){
         showOnlinePeople(messageData.online);
+    }else{
+        console.log({messageData});
     }
 
 }
@@ -46,7 +48,7 @@ function sendMessage(ev){
     ev.preventDefault();
     ws.send(JSON.stringify({
     message:{
-        recipent: selectedUserId,
+        recipient: selectedUserId,
         text: newMessageText,
     }
 }));
