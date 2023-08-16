@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
-const jsonToken = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const User = require('./models/User');
@@ -30,7 +30,7 @@ app.get('/test', (req,res) =>{
 app.get('/profile', (req,res) =>{
     const {token} = req.cookies?.token;
     if(token){
-    jsonToken.verify(token,jsonSecret,{},(err, userData) =>{
+    jwt.verify(token,jsonSecret,{},(err, userData) =>{
         if(err) throw err;
         res.json(userData);
     });
@@ -47,7 +47,7 @@ app.post('/login',async (req,res) =>{
     if (foundUser){
        const passOk = bcrypt.compareSync(password, foundUser.password);
        if(passOk){
-        jsonToken.sign({userId:createdUser, _id,username}, jsonSecret, {}, (err,token) =>{
+        jwt.sign({userId:createdUser, _id,username}, jsonSecret, {}, (err,token) =>{
 
         
         res.cookie('token', token, {sameSite:'none', secure:true}).json({
@@ -67,7 +67,7 @@ app.post('/register', async (req,res) =>{
             password:hashedPassword,
         });
         
-        jsonToken.sign({userId: createUser._id, username}, jsonSecret,{}, (err, token) => {
+        jwt.sign({userId: createUser._id, username}, jsonSecret,{}, (err, token) => {
             if (err) throw err;
             res.cookie('token', token, {sameSite:'none', secure:true}).status(201).json({
                 id: createUser._id,
@@ -103,7 +103,7 @@ wss.on('connection',(connection, req) =>{
     if(tokenCookieString){
         const token = tokenCookieString.split('=')[1];
         if(token){
-            jsonToken.verify(token,jsonSecret,{},(error,userData) =>{
+            jwt.verify(token,jsonSecret,{},(error,userData) =>{
                 if(err) throw err;
                 const {userId,username} = userData;
                 connection.userId = userId;

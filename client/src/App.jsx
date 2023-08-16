@@ -6,7 +6,7 @@ import Routes from "./Routes";
 
 
 function App() {
-  axios.defaults.baseURL =  'http://localhost:5173'
+  axios.defaults.baseURL =  'http://localhost:5173';
   axios.defaults.withCredentials = true;
   return (
     <UserContextProvider>

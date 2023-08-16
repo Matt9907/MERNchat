@@ -10,6 +10,7 @@ export default function Chat(){
     const[onlinePeople,setOnlinePeople] = useState({});
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [newMessageText,setNewMessageText] = useState('');
+    const [messages, setMessages] = useState('');
     const {username,id} = useContext(UserContext);
 
 useEffect(() =>{
@@ -47,11 +48,12 @@ function handleMessage(ev){
 function sendMessage(ev){
     ev.preventDefault();
     ws.send(JSON.stringify({
-    message:{
         recipient: selectedUserId,
         text: newMessageText,
-    }
+    
 }));
+   setNewMessageText('');
+   setMessages(prev => ([...prev,{text: newMessageText, isOur:true}]));
 
 }
 
@@ -84,6 +86,13 @@ delete onlinePeopleExcUs[id];
                     <div className="flex h-full flex-grow items-center justify-center"> 
                     <div className="text-gray-300">&larr; Select a Contact</div>
                     </div>
+                )}
+                {!!selectedUserId &&(
+                    <div>
+                        {messages.map(message =>(
+                            <div> {message.text}</div>
+                        ))}
+                        </div>
                 )}
                 </div>
                 {!!selectedUserId && (
