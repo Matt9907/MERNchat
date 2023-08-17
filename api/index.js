@@ -42,7 +42,7 @@ app.get('/test', (req,res) =>{
     res.json('test ok');
 });
 
-app,get('/messages/:userId', async(req,res) =>{
+app.get('/messages/:userId', async(req,res) =>{
     const {userId} = req.params;
     const userData = await getUserDataFromRequest(req);
     const ourUserId = userData.userId;
