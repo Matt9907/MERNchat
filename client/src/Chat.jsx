@@ -13,7 +13,7 @@ export default function Chat(){
     const [newMessageText,setNewMessageText] = useState('');
     const [messages, setMessages] = useState('');
     const {username,id} = useContext(UserContext);
-    const messagesBoxRef = useRef();
+    const divUnderMessage = useRef();
 
 useEffect(() =>{
     const ws = new WebSocket('ws://localhost:5173');
@@ -62,7 +62,18 @@ function sendMessage(ev){
     id: Date.now(),
 }]));
 
+
+
 }
+
+useEffect(() =>{
+    const div = divUnderMessage.current;
+    if(div){
+        div.scrollIntoView({behavior:'smooth', block:'end'});
+    }
+
+
+}, [messages]);
 
 const onlinePeopleExcUs = {...onlinePeople};
 delete onlinePeopleExcUs[id];
@@ -97,8 +108,9 @@ const messageWithoutDupe = uniqBy(messages, 'id');
                     </div>
                 )}
                 {!!selectedUserId &&(
-                    <div className="relative h-full ">
-                    <div ref= {messagesBoxRef} className="overflow-y-scroll position-absolute inset-0">
+                    
+                        <div className="relative h-full  ">
+                    <div className="overflow-y-scroll position-absolute top-0 left-0 right-0 bottom-2">
                         {messageWithoutDupe.map(message =>(
                             <div className={(message.sender===id ? 'text-right':'text-left')}>
 
@@ -109,8 +121,12 @@ const messageWithoutDupe = uniqBy(messages, 'id');
                                 </div>
                                 </div>
                         ))}
+                        <div ref ={divUnderMessage}></div>
                         </div>
                         </div>
+
+                   
+                    
                 )}
                 </div>
                 {!!selectedUserId && (
