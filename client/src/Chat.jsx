@@ -3,7 +3,7 @@ import Avatar from "./Avatar";
 import Logo from "./Logo";
 import {UserContext} from "./UserContext.jsx"
 import {uniqBy} from "lodash";
-import axios from "axios";
+import axios, { Axios } from "axios";
 
 
 export default function Chat(){
@@ -71,14 +71,22 @@ useEffect(() =>{
     if(div){
         div.scrollIntoView({behavior:'smooth', block:'end'});
     }
-
-
 }, [messages]);
+
+useEffect(() =>{
+    if(selectedUserId){
+        axios.get('/messages/' + selectedUserId).then(res => {
+            setMessages(res.data);
+        });
+
+    }
+
+} , [selectedUserId]);
 
 const onlinePeopleExcUs = {...onlinePeople};
 delete onlinePeopleExcUs[id];
 
-const messageWithoutDupe = uniqBy(messages, 'id');
+const messageWithoutDupe = uniqBy(messages, '_id');
 
 
 
