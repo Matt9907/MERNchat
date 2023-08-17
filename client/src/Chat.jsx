@@ -13,6 +13,7 @@ export default function Chat(){
     const [newMessageText,setNewMessageText] = useState('');
     const [messages, setMessages] = useState('');
     const {username,id} = useContext(UserContext);
+    const messagesBoxRef = useRef();
 
 useEffect(() =>{
     const ws = new WebSocket('ws://localhost:5173');
@@ -96,7 +97,8 @@ const messageWithoutDupe = uniqBy(messages, 'id');
                     </div>
                 )}
                 {!!selectedUserId &&(
-                    <div className="overflow-y-scroll">
+                    <div className="relative h-full ">
+                    <div ref= {messagesBoxRef} className="overflow-y-scroll position-absolute inset-0">
                         {messageWithoutDupe.map(message =>(
                             <div className={(message.sender===id ? 'text-right':'text-left')}>
 
@@ -107,6 +109,7 @@ const messageWithoutDupe = uniqBy(messages, 'id');
                                 </div>
                                 </div>
                         ))}
+                        </div>
                         </div>
                 )}
                 </div>
