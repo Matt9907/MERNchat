@@ -152,7 +152,7 @@ wss.on('connection',(connection, req) =>{
             text, 
             sender: connection.userId,
             recipient,
-            id: messageDoc._id,
+            _id: messageDoc._id,
 
         })));
     }
