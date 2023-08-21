@@ -73,7 +73,7 @@ function sendMessage(ev){
     text: newMessageText, 
     sender: id,
     recipient: selectedUserId,
-    id: Date.now(),
+    _id: Date.now(),
 }]));
 
 
@@ -134,7 +134,7 @@ const messageWithoutDupe = uniqBy(messages, '_id');
                         <div className="relative h-full  ">
                     <div className="overflow-y-scroll position-absolute top-0 left-0 right-0 bottom-2">
                         {messageWithoutDupe.map(message =>(
-                            <div className={(message.sender===id ? 'text-right':'text-left')}>
+                            <div key = {message._id} className={(message.sender===id ? 'text-right':'text-left')}>
 
                             <div className={" text-left inline-block p-2 my-2 rounded-md text-sm " + (message.sender===id ? 'bg-blue-500 text-white' : 'bg-white text-gray-500')}> 
                                 sender: {message.sender}<br />
