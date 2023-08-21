@@ -15,11 +15,25 @@ export default function Chat(){
     const {username,id} = useContext(UserContext);
     const divUnderMessage = useRef();
 
-useEffect(() =>{
+    useEffect(() =>{
+        connectToWs();
+    }, [selectedUserId]);
+
+
+
+    function connectToWs(){
     const ws = new WebSocket('ws://localhost:5173');
     setWs(ws);
     ws.addEventListener('message',handleMessage )
-} ,[]);
+    ws.addEventListener('close', () => {
+        setTimeout(() =>{
+            console.log('Disconnected. Reconnecting Now');
+            connectToWs();
+        }, 1000);
+
+    });
+ }
+    
 
 function showOnlinePeople(peopleArray){
     const people = {};
