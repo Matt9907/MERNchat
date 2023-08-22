@@ -8,6 +8,8 @@ export default function RegisterAndLogin(){
     const [isLoginOrRegister, setIsLoginOrRegister] = useState('login');
     const {setUsername: setLoggedInUsername, setId} = useContext(UserContext);
     
+    
+    //POST still throwing Error
     async function handleSubmit(ev){
         ev.preventDefault();
         try{

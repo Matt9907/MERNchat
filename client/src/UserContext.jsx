@@ -8,6 +8,7 @@ export function UserContextProvider({children}){
     const [username,setUsername] = useState(null);
     const [id,setId] = useState(null);
 
+   //GET still throwing Error
     useEffect(() =>{
             axios.get('/profile').then(response =>{
             setId(response.data.userId);
