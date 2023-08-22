@@ -147,8 +147,6 @@ const messageWithoutDupe = uniqBy(messages, '_id');
                         </div>
                         </div>
 
-                   
-                    
                 )}
                 </div>
                 {!!selectedUserId && (
