@@ -12,6 +12,11 @@ export function UserContextProvider({children}){
             axios.get('/profile').then(response =>{
             setId(response.data.userId);
             setUsername(response.data.username);
+            })
+            .catch(error =>{
+                console.error('Error Test',error);
+            
+            
         });
     }, []);
     return(

@@ -10,11 +10,15 @@ export default function RegisterAndLogin(){
     
     async function handleSubmit(ev){
         ev.preventDefault();
+        try{
         const url = isLoginOrRegister === 'register' ? 'register' : 'login';
         const {data} =  await axios.post(url, {username,password});
         setLoggedInUsername(username);
         setId(data.id);
+    } catch(error){
+        console.error('Error on Post', error);
     }
+}
 
     return(
         <div className="bg-blue-50 h-screen flex items-center">
