@@ -88,6 +88,14 @@ useEffect(() =>{
 }, [messages]);
 
 useEffect(() =>{
+    axios.get('/people').then(res =>{
+        const offlinePeople = res.data.filter(p => p._id !== id);
+        console.log(offlinePeople);
+    });
+
+}, [onlinePeople]);
+
+useEffect(() =>{
     if(selectedUserId){
         axios.get('/messages/' + selectedUserId).then(res => {
             setMessages(res.data);
@@ -115,7 +123,7 @@ const messageWithoutDupe = uniqBy(messages, '_id');
                             <div className="w-1 bg-blue-500 h-12 rounded-r-md"></div>
                         ) }
                         <div className="flex gap-2 py-2 pl-4 items-center">
-                        <Avatar username={onlinePeople[userId]} userId={[userId]} />
+                        <Avatar online = {true} username={onlinePeople[userId]} userId={[userId]} />
                     
                     <span className="text-gray-800">{onlinePeople[userId]}</span>
                      </div>
