@@ -115,7 +115,7 @@ app.post('/register', async (req,res) =>{
 
 
 
-
+//WebSocketServer logic
 
 
 const server = app.listen(4000);
@@ -123,6 +123,34 @@ const server = app.listen(4000);
 const wss=new ws.WebSocketServer({server});
 
 wss.on('connection',(connection, req) =>{
+
+    function notifyAboutOnline(){
+        [...wss.clients].forEach(client =>{
+            client.send(JSON.stringify({
+                online: [...wss.clients].map(c => ({userId:c.userId, username:c.username})),
+            }));
+        });
+    }
+
+    connection.isAlive = true;
+
+    //Clear offline or dead connections
+
+    connection.timer = setInterval(() =>{
+        connection.ping();
+        connection.deathTimer = setTimeout(() =>{
+            connection.isAlive = false;
+            clearInterval(connection.timer);
+            connection.terminate();
+            notifyAboutOnline();
+            console.log('dead');
+        }, 1000);
+    }, 5000);
+
+    connection.on('pong', () =>{
+        clearTimeout(connection.deathTimer);
+    });
+
     //read user and id from the cookie for this connection
  const cookies = req.headers.cookie;
  if (cookies){
@@ -168,10 +196,12 @@ wss.on('connection',(connection, req) =>{
 [...wss.clients].forEach(client => {
     client.send(JSON.stringify({
       online:  [...wss.clients].map(c => ({userId:c.userId,username:c.username}))
-    }))
+    }));
+});
 });
 
-
+wss.on('close', data=>{
+    console.log('close',data);
 });
 
 
