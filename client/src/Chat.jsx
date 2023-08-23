@@ -89,8 +89,14 @@ useEffect(() =>{
 
 useEffect(() =>{
     axios.get('/people').then(res =>{
-        const offlinePeople = res.data.filter(p => p._id !== id);
-        console.log(offlinePeople);
+        const offlinePeopleArray = res.data
+        .filter(p => p._id !== id)
+        .filter(p => !Object.keys(onlinePeople).includes(p._id));
+        const offlinePeople = {};
+        offlinePeopleArray.forEach(p => {
+            offlinePeople[p._id] = p;
+        });
+        setOfflinePeole(offlinePeople);
     });
 
 }, [onlinePeople]);
