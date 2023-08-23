@@ -134,6 +134,16 @@ const messageWithoutDupe = uniqBy(messages, '_id');
                     selected = {userId === selectedUserId} />
 
                 ))}
+                {Object.keys(offlinePeople).map(userId =>(
+                    <Contact 
+                    key = {userId}
+                    id={userId} 
+                    online ={false}
+                    username = {offlinePeople[userId].username}
+                    onClick = {() => setSelectedUserId(userId)}
+                    selected = {userId === selectedUserId} />
+
+                ))}
             </div>
             <div className="flex flex-col bg-blue-50 w-2/3 p-2">
                 <div className="flex-grow"> 
