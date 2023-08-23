@@ -13,7 +13,7 @@ export default function Chat(){
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [newMessageText,setNewMessageText] = useState('');
     const [messages, setMessages] = useState('');
-    const {username,id} = useContext(UserContext);
+    const {username,id,setId, setUsername} = useContext(UserContext);
     const divUnderMessage = useRef();
 
     useEffect(() =>{
