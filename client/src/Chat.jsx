@@ -3,12 +3,13 @@ import Avatar from "./Avatar";
 import Logo from "./Logo";
 import {UserContext} from "./UserContext.jsx"
 import {uniqBy} from "lodash";
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 
 export default function Chat(){
     const [ws, setWs] = useState(null);
     const[onlinePeople,setOnlinePeople] = useState({});
+    const [offlinePeople, setOfflinePeole] = useState({});
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [newMessageText,setNewMessageText] = useState('');
     const [messages, setMessages] = useState('');
