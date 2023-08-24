@@ -42,6 +42,8 @@ app.get('/test', (req,res) =>{
     res.json('test ok');
 });
 
+
+//GET request which differentiates between who a sender and recipient are
 app.get('/messages/:userId', async(req,res) =>{
     const {userId} = req.params;
     const userData = await getUserDataFromRequest(req);
@@ -70,6 +72,8 @@ app.get('/profile', (req,res) =>{
 }
 });
 
+
+//POST request for Login of username/password
 app.post('/login',async (req,res) =>{
     const {username, password} = req.body;
     const foundUser = await User.findOne({username});
@@ -84,6 +88,9 @@ app.post('/login',async (req,res) =>{
        }
     }
 });
+
+
+//POST request for registration 
 
 app.post('/register', async (req,res) =>{
     const {username, password} = req.body;
@@ -169,6 +176,8 @@ wss.on('connection',(connection, req) =>{
         }
     }
  }    
+
+ //Logic for sending messages from one connection to another.
 
  connection.on('message',async (message) => {
     const messageData = JSON.parse(message.toString());
