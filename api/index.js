@@ -43,7 +43,7 @@ app.get('/test', (req,res) =>{
 });
 
 
-//GET request which differentiates between who a sender and recipient are
+//GET request which differentiates between who a sender and recipient are id-wise
 app.get('/messages/:userId', async(req,res) =>{
     const {userId} = req.params;
     const userData = await getUserDataFromRequest(req);
