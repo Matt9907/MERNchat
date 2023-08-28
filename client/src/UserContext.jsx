@@ -9,6 +9,7 @@ export function UserContextProvider({children}){
     const [id,setId] = useState(null);
 
    //GET still throwing Error
+//Profile not being got throws error on GET and holds and throws POST error on registration 
     useEffect(() =>{
             axios.get('/profile').then(response =>{
             setId(response.data.userId);
