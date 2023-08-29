@@ -10,6 +10,7 @@ export default function RegisterAndLogin(){
     
     
     //POST still throwing Error
+    //Still not sure the problem
     async function handleSubmit(ev){
         ev.preventDefault();
         try{
