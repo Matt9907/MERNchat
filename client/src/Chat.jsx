@@ -55,13 +55,18 @@ function showOnlinePeople(peopleArray){
 
 function handleMessage(ev){
     const messageData = JSON.parse(ev.data);
+    console.log([ev, messageData]);
     if('online' in messageData){
         showOnlinePeople(messageData.online);
     }else if('text' in messageData){
+        if(messageData.sender === selectedUserId){
         setMessages(prev => ([...prev, {...messageData}]));
     }
+}
 
 }
+
+
 
 function sendMessage(ev){
     ev.preventDefault();
