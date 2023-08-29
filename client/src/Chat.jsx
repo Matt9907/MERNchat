@@ -65,6 +65,13 @@ function handleMessage(ev){
 }
 
 }
+function logout(){
+    axios.post('/logout').then(() =>{
+        setWs(null);
+        setId(null);
+        setUsername(null);
+    });
+}
 
 
 
