@@ -158,7 +158,11 @@ const messageWithoutDupe = uniqBy(messages, '_id');
                 ))}
             </div>
             <div className="p-2 text-center">
-                    <button className="text-sm bg-blue-100 py-1 px-2 text-gray-500 border rounded-sm">Logout</button>
+                    <button 
+                    onClick={logout}
+                    className="text-sm bg-blue-100 py-1 px-2 text-gray-500 border rounded-sm">
+                        Logout
+                        </button>
             </div>
             <div className="flex flex-col bg-blue-50 w-2/3 p-2">
                 <div className="flex-grow"> 
