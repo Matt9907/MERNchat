@@ -2,7 +2,7 @@ import { useContext,useEffect,useRef , useState } from "react";
 import Avatar from "./Avatar";
 import Logo from "./Logo";
 import {UserContext} from "./UserContext.jsx"
-import {uniqBy} from "lodash";
+import {isNull, uniqBy} from "lodash";
 import axios from "axios";
 import Contact from "./Contact";
 
@@ -75,13 +75,20 @@ function logout(){
 
 
 
-function sendMessage(ev){
-    ev.preventDefault();
+function sendMessage(ev, file = isNull){
+    if(ev) ev.preventDefault();
     ws.send(JSON.stringify({
         recipient: selectedUserId,
         text: newMessageText,
+        file,
     
 }));
+if(file){
+    axios.get('/message' +selectedUserId).then(res =>{
+        setMessages(res.data);
+    });
+}else{
+
    setNewMessageText('');
    setMessages(prev => ([...prev,{
     text: newMessageText, 
@@ -90,7 +97,7 @@ function sendMessage(ev){
     _id: Date.now(),
 }]));
 
-
+}
 
 }
 
