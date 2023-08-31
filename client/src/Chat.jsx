@@ -94,6 +94,11 @@ function sendMessage(ev){
 
 }
 
+function sendFile(ev){
+    const file = ev.target.files[0];
+    axios.post('/message')
+}
+
 useEffect(() =>{
     const div = divUnderMessage.current;
     if(div){
