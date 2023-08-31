@@ -95,8 +95,14 @@ function sendMessage(ev){
 }
 
 function sendFile(ev){
-    const file = ev.target.files[0];
-    axios.post('/message')
+    const reader = new FileReader();
+    reader.readAsDataURL(ev.target.files[0]);
+    reader.onload = () =>{
+        sendMessage(null, {
+            name: ev.target.files[0].name,
+            data: reader.result,
+        });
+    };
 }
 
 useEffect(() =>{
