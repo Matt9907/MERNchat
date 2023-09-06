@@ -198,7 +198,7 @@ wss.on('connection',(connection, req) =>{
     }
     
     
-    if(recipient && text){
+    if(recipient && (text || file)){
        const messageDoc = await Message.create({
             sender: connection.userId,
             recipient,
@@ -211,6 +211,7 @@ wss.on('connection',(connection, req) =>{
             text, 
             sender: connection.userId,
             recipient,
+            file: file ? filename: null ,
             _id: messageDoc._id,
 
         })));

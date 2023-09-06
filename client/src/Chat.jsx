@@ -99,12 +99,6 @@ if(file){
 
 }
 
-if(file){
-    axios.get('/messages/' + selectedUserId).then(res => {
-        setMessages(res.data);
-    });
-}
-
 }
 //file send handling
 function sendFile(ev){
@@ -213,8 +207,12 @@ const messageWithoutDupe = uniqBy(messages, '_id');
                                 my id: {id}<br />
                                {message.text}
                                {message.file && (
-                                <div>
-                                    <a href = {axios.defaults.baseURL + '/' + message.file}>
+                                <div className="">
+                                    
+                                    <a target = "_blank" className ="flex items-center gap-1 border-b" href = {axios.defaults.baseURL + '/Uploads/' + message.file}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
+</svg>
                                         {message.file}
                                     </a>
                                     </div>
