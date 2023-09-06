@@ -18,6 +18,7 @@ const bcryptSalt = bcrypt.genSaltSync(10);
 
 
 const app = express();
+app.use('/uploads', express.static(__dirname + '/Uploads'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
@@ -183,10 +184,11 @@ wss.on('connection',(connection, req) =>{
  connection.on('message',async (message) => {
     const messageData = JSON.parse(message.toString());
     const {recipient, text} = messageData;
+    let filename = null;
     if(file){
         const parts = file.name.split('.');
         const ext = parts[parts.length -1];
-        const filename = Date.now() + '.' + ext;
+        filename = Date.now() + '.' + ext;
         const path = __dirname + '/Uploads/' + filename;
         const bufferData = new Buffer(file.data.split('.')[1], 'base64');
 
@@ -201,6 +203,7 @@ wss.on('connection',(connection, req) =>{
             sender: connection.userId,
             recipient,
             text,
+            file: file ? filename : null,
         });
         [...wss.clients]
         .filter(c=>c.userId === recipient)

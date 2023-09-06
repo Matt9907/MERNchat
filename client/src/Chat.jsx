@@ -99,6 +99,12 @@ if(file){
 
 }
 
+if(file){
+    axios.get('/messages/' + selectedUserId).then(res => {
+        setMessages(res.data);
+    });
+}
+
 }
 //file send handling
 function sendFile(ev){
@@ -206,6 +212,13 @@ const messageWithoutDupe = uniqBy(messages, '_id');
                                 sender: {message.sender}<br />
                                 my id: {id}<br />
                                {message.text}
+                               {message.file && (
+                                <div>
+                                    <a href = {axios.defaults.baseURL + '/' + message.file}>
+                                        {message.file}
+                                    </a>
+                                    </div>
+                               ) }
                                 </div>
                                 </div>
                         ))}
