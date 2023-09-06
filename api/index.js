@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const User = require('./models/User');
 const Message = require('./models/Message');
 const ws = require('ws');
+const fs = require('fs');
 
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL);
@@ -183,7 +184,15 @@ wss.on('connection',(connection, req) =>{
     const messageData = JSON.parse(message.toString());
     const {recipient, text} = messageData;
     if(file){
-        console.log({file});
+        const parts = file.name.split('.');
+        const ext = parts[parts.length -1];
+        const filename = Date.now() + '.' + ext;
+        const path = __dirname + '/Uploads/' + filename;
+        const bufferData = new Buffer(file.data.split('.')[1], 'base64');
+
+        fs.writeFile(path,bufferData, () =>{
+            console.log('file saved: ' +path);
+        });
     }
     
     
