@@ -22,7 +22,7 @@ export default function Chat(){
     }, [selectedUserId]);
 
 
-
+//Websocket connection
     function connectToWs(){
     const ws = new WebSocket('ws://localhost:5173');
     setWs(ws);
@@ -100,7 +100,7 @@ if(file){
 }
 
 }
-
+//file send handling
 function sendFile(ev){
     const reader = new FileReader();
     reader.readAsDataURL(ev.target.files[0]);
