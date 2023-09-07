@@ -127,7 +127,7 @@ app.post('/register', async (req,res) =>{
 //WebSocketServer logic
 
 
-const server = app.listen(4000);
+const server = app.listen(5173);
 
 const wss=new ws.WebSocketServer({server});
 
