@@ -1,0 +1,1 @@
+This is a Real-Time Chat Application built using the MERN stack(Mongo, Express, React, and Node). The application allows users to send chats back and forth between online users including files as well as texts. 
